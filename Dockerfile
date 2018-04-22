@@ -1,5 +1,5 @@
-FROM alpine AS seed
-RUN apk --no-cache add curl zip jq
+FROM alpine AS build
+RUN apk --no-cache add curl jq mongodb-tools zip
 WORKDIR /tmp/data
 RUN curl -sO https://mtgjson.com/json/AllSets.json.zip \
  && unzip AllSets.json.zip \
@@ -8,8 +8,9 @@ RUN curl -sO https://mtgjson.com/json/AllSets.json.zip \
  && jq -r 'to_entries[] | .value.cards[] + {set: .key}' AllSets.json > /data/cards.json
  
 FROM alpine
-RUN apk --no-cache add mongodb mongodb-tools
-COPY --from=seed /data /data
+RUN apk --no-cache add mongodb libsasl
+COPY --from=build /usr/bin/mongoimport /usr/bin
+COPY --from=build /data /data
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 VOLUME /data/db
