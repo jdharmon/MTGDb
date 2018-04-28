@@ -9,7 +9,7 @@ The ```mtg``` database contains the following collections
 ## Usage
 
 ```
-docker run --rm -d --name mtgdb -p 27017:27017 jdharmon/mtgdb
+$ docker run --rm -d --name mtgdb -p 27017:27017 jdharmon/mtgdb
 ```
 
 ### Card Search
@@ -17,7 +17,7 @@ docker run --rm -d --name mtgdb -p 27017:27017 jdharmon/mtgdb
 Find the most recent printing of Opt.
 
 ```
-docker exec -it mtgdb mongo
+$ docker exec -it mtgdb mongo
 
 > use mtg
 switched to db mtg
