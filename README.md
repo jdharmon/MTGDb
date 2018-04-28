@@ -1,6 +1,6 @@
 # MTGDb
 
-Mongo database containing Magic: The Gathering cards and sets.
+Mongo database containing Magic: The Gathering cards and sets from [MTG JSON](https://mtgjson.com/).
 
 The ```mtg``` database contains the following collections
 * cards
